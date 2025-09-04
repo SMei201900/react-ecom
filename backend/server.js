@@ -1,0 +1,44 @@
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const Product = require('./models/Product');  
+
+// Create an Express application
+const app = express();
+
+app.use(cors()); 
+app.use(express.json());  
+
+// Connect to MongoDB using Mongoose
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.error('Failed to connect to MongoDB', err));
+
+
+// Get all products
+app.get('/products', (req, res) => {
+  Product.find()  // Fetch all products from the database
+    .then(products => res.json(products))
+    .catch(err => res.status(500).json({ message: 'Failed to fetch products', error: err }));
+});
+
+// Create a new product
+app.post('/products', (req, res) => {
+  const { name, price, description, image } = req.body;  // Get product data from the request body
+
+  // Create a new Product object
+  const newProduct = new Product({ name, price, description, image });
+
+  newProduct.save()  // Save the new product to the database
+    .then(() => res.status(201).json(newProduct))
+    .catch(err => res.status(500).json({ message: 'Failed to create product', error: err }));
+});
+
+app.get('/', (req, res) => {
+  res.send('Welcome to the API');
+});
+
+// Listen for incoming requests
+const port = process.env.PORT || 5000;
+app.listen(port, () => console.log(`Server running on port ${port}`));
