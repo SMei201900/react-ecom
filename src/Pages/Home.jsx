@@ -41,7 +41,7 @@ const Home = ({ addToCart }) => {
         <div className="product-list">
           {combinedProducts.map((product) => (
             <ProductCard
-              key={product.id || product._id}  // Use dynamic MongoDB _id or static id
+              key={product.id || product._id}  
               product={product}
               addToCart={addToCart}
             />
