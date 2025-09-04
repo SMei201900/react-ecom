@@ -106,3 +106,9 @@ app.delete('/products/:id', async (req, res) => {
     res.status(500).json({ message: 'Server error', error: err });
   }
 });
+
+//Checking out 
+app.post('/checkout', (req, res) => {
+  console.log('Received checkout items:', req.body.items);
+  res.json({ message: 'This is a test' }); // Frontend will show this in alert
+});
