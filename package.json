@@ -10,7 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.11.0",
     "axois": "^0.0.1-security",
+    "mongoose": "^8.18.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.8.2"
