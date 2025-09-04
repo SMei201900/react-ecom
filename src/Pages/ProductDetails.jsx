@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import './ProductDetails.css'; 
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -14,7 +15,7 @@ const ProductDetails = () => {
         setLoading(false);
       })
       .catch((error) => {
-        console.error('Failed to fetch product detail:', error); /*add axois pop up here*/
+        console.error('Failed to fetch product detail:', error);
         setLoading(false);
       });
   }, [id]);
@@ -23,17 +24,25 @@ const ProductDetails = () => {
   if (!product) return <p>Product not found.</p>;
 
   return (
-    <div>
-      <h1>{product.name}</h1>
+    <div className="product-container">
+      <h1 className="product-title">{product.name}</h1>
       <img
         src={product.image}
         alt={product.name}
-        style={{ width: '300px', height: '300px', objectFit: 'cover' }}
+        className="product-image"
       />
-      <p>Price: ${product.price}</p>
-      <p>Description: {product.description}</p>
+      <p className="product-price">Price: ${product.price}</p>
+      <p className="product-description">{product.description}</p>
+
+    {product.extraInfo && (
+      <div className="product-extra-info">
+        <h3>More Information</h3>
+        <p>{product.extraInfo}</p>
+      </div>
+    )}
     </div>
   );
 };
 
 export default ProductDetails;
+
