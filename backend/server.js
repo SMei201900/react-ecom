@@ -17,11 +17,24 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('Failed to connect to MongoDB', err));
 
-// Get all products
-app.get('/products', (req, res) => {
-  Product.find()  // Fetch all products from the database
-    .then(products => res.json(products))
-    .catch(err => res.status(500).json({ message: 'Failed to fetch products', error: err }));
+// Get all products, remove duplicate
+app.get('/products', async (req, res) => {
+  try {
+    const products = await Product.aggregate([
+      {
+        $group: {
+          _id: "$image",  
+          doc: { $first: "$$ROOT" }  
+        }
+      },
+      {
+        $replaceRoot: { newRoot: "$doc" }  
+      }
+    ]);
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to fetch products', error: err });
+  }
 });
 
 // Get product by ID 

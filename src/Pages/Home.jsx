@@ -10,7 +10,7 @@ const Home = ({ addToCart }) => {
   const [loading, setLoading] = useState(true);
 
   const staticProducts = [
-    { id: 1, name: 'Apple Candle', price: '$12.99', image: appleCandle },
+    { id: 1, name: 'Apple Basket Candle', price: '$12.99', image: appleCandle },
     { id: 2, name: 'Strawberry Candle', price: '$8.99', image: strawberryCandle },
     { id: 3, name: 'Orange Candle', price: '$10.99', image: orangeCandle },
   ];
@@ -29,6 +29,11 @@ const Home = ({ addToCart }) => {
 
   const combinedProducts = [...staticProducts, ...products];
 
+  //remove duplicates 
+  const uniqueProducts = combinedProducts.filter((product, index, self) =>
+    index === self.findIndex(p => p.image === product.image)
+  );
+
   return (
     <div>
       <h1>Our Products</h1>
@@ -37,7 +42,7 @@ const Home = ({ addToCart }) => {
         <p>Loading products...</p>
       ) : (
         <div className="product-list">
-          {combinedProducts.map((product) => {
+          {uniqueProducts.map((product) => {
             const clickable = !!product._id;
 
             return (
@@ -45,7 +50,7 @@ const Home = ({ addToCart }) => {
                 key={product.id || product._id}
                 product={product}
                 addToCart={addToCart}
-                clickable={clickable} 
+                clickable={clickable}
               />
             );
           })}
@@ -53,6 +58,6 @@ const Home = ({ addToCart }) => {
       )}
     </div>
   );
-};
+}
 
 export default Home;
