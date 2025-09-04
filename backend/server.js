@@ -27,22 +27,35 @@ app.get('/products', (req, res) => {
 // Get product by ID 
 app.get('/products/:id', (req, res) => {
   const id = req.params.id;
-  //
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ message: 'Invalid product ID' });
+
+  if (mongoose.Types.ObjectId.isValid(id)) {
+    // Try finding as ObjectId first
+    Product.findById(id)
+      .then(product => {
+        if (product) return res.json(product);
+
+        // If not found as ObjectId, try as string _id
+        return Product.findOne({ _id: id }).then(stringProduct => {
+          if (!stringProduct) return res.status(404).json({ message: 'Product not found' });
+          res.json(stringProduct);
+        });
+      })
+      .catch(err => {
+        console.error('Error:', err);
+        res.status(500).json({ message: 'Server error', error: err });
+      });
+  } else {
+    // Try directly as a string _id
+    Product.findOne({ _id: id })
+      .then(product => {
+        if (!product) return res.status(404).json({ message: 'Product not found' });
+        res.json(product);
+      })
+      .catch(err => {
+        console.error('Error:', err);
+        res.status(500).json({ message: 'Server error', error: err });
+      });
   }
-  //
-  Product.findById(id)
-    .then(product => {
-      if (!product) {
-        return res.status(404).json({ message: 'Product not found' });
-      }
-      res.json(product);
-    })
-    .catch(err => {
-      console.error('Error fetching product by ID:', err);
-      res.status(500).json({ message: 'Server error', error: err });
-    });
 });
 
 // Create a new product
