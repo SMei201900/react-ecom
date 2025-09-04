@@ -8,21 +8,18 @@ const ProductDetails = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log('Fetching product ID:', id);
-
     axios.get(`http://localhost:5000/products/${id}`)
       .then((response) => {
         setProduct(response.data);
         setLoading(false);
       })
       .catch((error) => {
-        console.error('Failed to fetch product detail:', error);
+        console.error('Failed to fetch product detail:', error); /*add axois pop up here*/
         setLoading(false);
       });
   }, [id]);
 
   if (loading) return <p>Loading...</p>;
-
   if (!product) return <p>Product not found.</p>;
 
   return (
