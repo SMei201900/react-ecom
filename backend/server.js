@@ -12,18 +12,37 @@ app.use(express.json());
 
 console.log("Connecting to MongoDB at:", process.env.MONGODB_URL);
 
-
 // Connect to MongoDB using Mongoose
 mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('Failed to connect to MongoDB', err));
-
 
 // Get all products
 app.get('/products', (req, res) => {
   Product.find()  // Fetch all products from the database
     .then(products => res.json(products))
     .catch(err => res.status(500).json({ message: 'Failed to fetch products', error: err }));
+});
+
+// Get product by ID 
+app.get('/products/:id', (req, res) => {
+  const id = req.params.id;
+  //
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ message: 'Invalid product ID' });
+  }
+  //
+  Product.findById(id)
+    .then(product => {
+      if (!product) {
+        return res.status(404).json({ message: 'Product not found' });
+      }
+      res.json(product);
+    })
+    .catch(err => {
+      console.error('Error fetching product by ID:', err);
+      res.status(500).json({ message: 'Server error', error: err });
+    });
 });
 
 // Create a new product
