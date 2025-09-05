@@ -8,9 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "node index.js",
+    "start": "node index.js", 
     "serve": "vite preview"
-}
   },
   "dependencies": {
     "axios": "^1.11.0",
