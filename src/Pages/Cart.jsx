@@ -27,23 +27,24 @@ const Cart = ({ cartItems, updateCartQuantity, removeFromCart }) => {
           <div className="cart-items">
             <ul>
               {cartItems.map((item) => (
-                <li key={`${item.id}-${item.price}`} className="cart-item">
-                  <div>
-                    {item.name} x{item.quantity || 1} - $
-                    {(item.price * (item.quantity || 1)).toFixed(2)}
+                <li key={`${item.id}-${item.price}`} className="cartProduct">
+
+                  <div className="itemInfo">
+                    <span>{item.name}</span>  {/* Left side: Only Product Name */}
                   </div>
 
-                  {/* Plus or Minus item */}
-                  <div className="quantity-controls">
-                    <button onClick={() => updateCartQuantity(item.id, (item.quantity || 1) - 1)}>-</button>
-                    <span>{item.quantity || 1}</span>
-                    <button onClick={() => updateCartQuantity(item.id, (item.quantity || 1) + 1)}>+</button>
-                  </div>
+                  {/* Right side: Price, Quantity Controls, and Remove Button */}
+                  <div className="rightSide">
+                    <span className="price">${(item.price * (item.quantity || 1)).toFixed(2)}</span>
 
-                  {/* Remove All button */}
-                  <button onClick={() => removeFromCart(item.id)} className="remove-btn">
-                    Remove
-                  </button>
+                    <div className="quantityBtn">
+                      <button onClick={() => updateCartQuantity(item.id, (item.quantity || 1) - 1)}>-</button>
+                      <span>{item.quantity || 1}</span>
+                      <button onClick={() => updateCartQuantity(item.id, (item.quantity || 1) + 1)}>+</button>
+                    </div>
+
+                    <button onClick={() => removeFromCart(item.id)} className="removeBtn">X</button>
+                  </div>
                 </li>
               ))}
             </ul>
