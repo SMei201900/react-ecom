@@ -20,14 +20,6 @@ mongoose.connect(process.env.MONGODB_URL)
     console.error('Failed to connect to MongoDB', err);
   });
 
-//will this resolve the unable to deploy error 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'dist')));  /
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
-  });
-}
-
 // Get all products, remove duplicate
 app.get('/products', async (req, res) => {
   try {
@@ -120,16 +112,5 @@ app.delete('/products/:id', async (req, res) => {
 app.post('/checkout', (req, res) => {
   console.log('Received checkout items:', req.body.items);
   res.json({ message: 'This is a test' }); // Frontend will show this in alert
-});
-
-
-//will this resolve the unable to deploy error 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'dist'))); // Serve React build
-
-  // All non-API routes will return React's index.html
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
-  });
-}
+});  
 
