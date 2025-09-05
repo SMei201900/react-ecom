@@ -1,50 +1,17 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: Poppins, Arial, sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f9f9f9;
-}
-
-nav {
-  background-color: #333;
-  padding: 10px;
-  color: white;
-}
-
-nav a {
-  color: white;
-  margin: 0 15px;
-  text-decoration: none;
 }
 
 h1 {
   text-align: center;
 }
 
-.product-list {
+.product-list { /*located in Home.jsx*/
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
 }
 
-.product-card {
-  background-color: white;
-  padding: 20px;
-  margin: 10px;
-  border: 1px solid #ddd;
-  text-align: center;
-}
-
-.product-card img {
-  width: 150px;
-  height: 150px;
-}
-
-.product-card button {
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #333;
-  color: white;
-  border: none;
-  cursor: pointer;
-}

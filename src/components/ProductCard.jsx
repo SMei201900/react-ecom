@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import './ProductCard.css';
 
 const ProductCard = ({ product, addToCart, clickable }) => {
   const productId = product._id || product.id;

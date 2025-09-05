@@ -1,0 +1,21 @@
+.product-card {
+  background-color: white;
+  padding: 20px;
+  margin: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.product-card img {
+  width: 150px;
+  height: 150px;
+}
+
+.product-card button {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
