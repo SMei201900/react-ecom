@@ -10,9 +10,9 @@ const Home = ({ addToCart }) => {
   const [loading, setLoading] = useState(true);
 
   const staticProducts = [
-    { id: 1, name: 'Apple Basket Candle', price: '$12.99', image: appleCandle },
-    { id: 2, name: 'Strawberry Candle', price: '$8.99', image: strawberryCandle },
-    { id: 3, name: 'Orange Candle', price: '$10.99', image: orangeCandle },
+    { id: 1, name: 'Apple Basket Candle', price: 12.99, image: appleCandle },
+    { id: 2, name: 'Strawberry Candle', price: 8.99, image: strawberryCandle },
+    { id: 3, name: 'Orange Candle', price: 10.99, image: orangeCandle },
   ];
 
   useEffect(() => {
