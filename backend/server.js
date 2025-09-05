@@ -11,7 +11,7 @@ app.use(express.json());
 console.log("Connecting to MongoDB at:", process.env.MONGODB_URL);
 
 // Connect to MongoDB using Mongoose
-mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGODB_URL)
   .then(() => {
     console.log('Connected to MongoDB');
     app.listen(port, '0.0.0.0', () => console.log(`Server running on port ${port}`));
