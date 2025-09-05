@@ -10,11 +10,9 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
 
   const addToCart = (product) => {
-  console.log('Adding to cart:', product);  //it logged 
 
   setCartItems((prevItems) => {
     const newCart = [...prevItems, product];
-    console.log('Updated cart items:', newCart);  //it logged 
     return newCart;
   });
   };
