@@ -13,7 +13,7 @@ const Cart = ({ cartItems, updateCartQuantity, removeFromCart }) => {
       await axios.post("/checkout", cartItems);
     } catch (error) {
       console.error(error);
-      alert("This is a test aka nothing is happening");
+      alert("This is a test aka nothing will happen");
     }
   };
 
