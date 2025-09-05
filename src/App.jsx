@@ -37,28 +37,39 @@ export default function App() {
     });
   };
 
+  // Update quantity so I want 4 candles to become 2 candles 
+  const updateCartQuantity = (productId, quantity) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        (item._id || item.id) === productId
+          ? { ...item, quantity: Math.max(1, quantity) } // prevent 0 or negative
+          : item
+      )
+    );
+  };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
+  // Remove items entirely
+  const removeFromCart = (productId) => {
+    setCartItems((prevItems) =>
+      prevItems.filter((item) => (item._id || item.id) !== productId)
+    );
+  };
 
   return (
     <Router>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home addToCart={addToCart} />} />
-        <Route path="/cart" element={<Cart cartItems={cartItems} />} />
+        <Route
+          path="/cart"
+          element={
+            <Cart
+              cartItems={cartItems}
+              updateCartQuantity={updateCartQuantity}
+              removeFromCart={removeFromCart}
+            />
+          }
+        />
         <Route path="/products/:id" element={<ProductDetail addToCart={addToCart} />} />
       </Routes>
     </Router>

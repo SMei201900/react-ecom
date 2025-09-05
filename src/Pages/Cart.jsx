@@ -1,7 +1,7 @@
 import './Cart.css'; 
 import axios from "axios";
 
-const Cart = ({ cartItems }) => {
+const Cart = ({ cartItems, updateCartQuantity, removeFromCart }) => {
   const total = cartItems.reduce((sum, item) => {
     const price = typeof item.price === 'number' ? item.price : parseFloat(item.price?.replace('$', '') || 0);
     const quantity = item.quantity || 1;
@@ -28,8 +28,22 @@ const Cart = ({ cartItems }) => {
             <ul>
               {cartItems.map((item) => (
                 <li key={`${item.id}-${item.price}`} className="cart-item">
-                  {item.name} x{item.quantity || 1} - $
-                  {(item.price * (item.quantity || 1)).toFixed(2)}
+                  <div>
+                    {item.name} x{item.quantity || 1} - $
+                    {(item.price * (item.quantity || 1)).toFixed(2)}
+                  </div>
+
+                  {/* Plus or Minus item */}
+                  <div className="quantity-controls">
+                    <button onClick={() => updateCartQuantity(item.id, (item.quantity || 1) - 1)}>-</button>
+                    <span>{item.quantity || 1}</span>
+                    <button onClick={() => updateCartQuantity(item.id, (item.quantity || 1) + 1)}>+</button>
+                  </div>
+
+                  {/* Remove All button */}
+                  <button onClick={() => removeFromCart(item.id)} className="remove-btn">
+                    Remove
+                  </button>
                 </li>
               ))}
             </ul>

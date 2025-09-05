@@ -23,6 +23,20 @@
   border-bottom: 1px solid #ccc;
 }
 
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.quantity-controls button,
+.remove-btn {
+  padding: 4px 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
 .cart-summary { /*so my total and the checkout button*/
   align-self: flex-end;
   text-align: right;
