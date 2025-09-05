@@ -4,8 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const Product = require('./models/Product');  
 
-// Create an Express application
-const app = express();
+const app = express(); // Create an Express application
 
 app.use(cors()); 
 app.use(express.json());  
@@ -42,7 +41,7 @@ app.get('/products/:id', (req, res) => {
   const id = req.params.id;
 
   if (mongoose.Types.ObjectId.isValid(id)) {
-    // Try finding as ObjectId first
+    // Try finding as ObjectId first --> implemented due to an error that I encountered 
     Product.findById(id)
       .then(product => {
         if (product) return res.json(product);
@@ -74,9 +73,8 @@ app.get('/products/:id', (req, res) => {
 // Create a new product
 app.post('/products', (req, res) => {
   const { name, price, description, image } = req.body;  // Get product data from the request body
-
-  // Create a new Product object
-  const newProduct = new Product({ name, price, description, image });
+  
+  const newProduct = new Product({ name, price, description, image });  // Create a new Product object
 
   newProduct.save()  // Save the new product to the database
     .then(() => res.status(201).json(newProduct))
