@@ -91,7 +91,6 @@ app.get('/', (req, res) => {
 
 // Listen for incoming requests
 const port = process.env.PORT || 5000;
-app.listen(port, '0.0.0.0', () => console.log(`Server running on port ${port}`));
 
 //Delete 
 app.delete('/products/:id', async (req, res) => {
@@ -115,9 +114,3 @@ app.post('/checkout', (req, res) => {
   res.json({ message: 'This is a test' }); // Frontend will show this in alert
 });
 
-//Added b/c Mongo (backend) wasnt showing up after hosting --> error fixed 
-const path = require('path');
-app.use(express.static(path.join(__dirname, '../frontend/build')));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
-});
