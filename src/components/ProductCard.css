@@ -6,16 +6,31 @@
   text-align: center;
 }
 
+.product-card a { /*Link is just anchor tag*/
+  text-decoration: none;
+  color: black; 
+}
+
+.product-card a:hover {
+  text-decoration: underline; 
+  color: #f2c0cf;
+}
+
 .product-card img {
   width: 150px;
   height: 150px;
 }
 
-.product-card button {
+.product-card button { /*this should be the ADD TO CART button*/
   margin-top: 10px;
   padding: 10px;
   background-color: #333;
   color: white;
   border: none;
   cursor: pointer;
+}
+
+.product-card button:hover {
+  background-color:	#f2c0cf;
+  color: #23211a;
 }
