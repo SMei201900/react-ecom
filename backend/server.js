@@ -5,7 +5,6 @@ const cors = require('cors');
 const Product = require('./models/Product');  
 
 const app = express(); // Create an Express application
-
 app.use(cors()); 
 app.use(express.json());  
 
@@ -13,8 +12,13 @@ console.log("Connecting to MongoDB at:", process.env.MONGODB_URL);
 
 // Connect to MongoDB using Mongoose
 mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((err) => console.error('Failed to connect to MongoDB', err));
+  .then(() => {
+    console.log('Connected to MongoDB');
+    app.listen(port, '0.0.0.0', () => console.log(`Server running on port ${port}`));
+  })
+  .catch((err) => {
+    console.error('Failed to connect to MongoDB', err);
+  });
 
 // Get all products, remove duplicate
 app.get('/products', async (req, res) => {
@@ -109,4 +113,11 @@ app.delete('/products/:id', async (req, res) => {
 app.post('/checkout', (req, res) => {
   console.log('Received checkout items:', req.body.items);
   res.json({ message: 'This is a test' }); // Frontend will show this in alert
+});
+
+//Added b/c Mongo (backend) wasnt showing up after hosting --> error fixed 
+const path = require('path');
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
 });
