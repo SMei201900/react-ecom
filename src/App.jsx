@@ -6,7 +6,7 @@ import Home from './Pages/Home.jsx';
 import Cart from './Pages/Cart.jsx';
 import ProductDetail from './Pages/ProductDetails.jsx';
 
-function App() {
+export default function App() {
   const [cartItems, setCartItems] = useState([]);
 
   const addToCart = (product) => {
@@ -18,9 +18,12 @@ function App() {
       );
 
       if (existingIndex !== -1) {
-        // Item exists — increment quantity
-        const updatedItems = [...prevItems];
-        updatedItems[existingIndex].quantity += 1;
+        // Item exists — increment quantity immutably
+        const updatedItems = prevItems.map((item, index) =>
+          index === existingIndex
+            ? { ...item, quantity: (item.quantity || 1) + 1 }
+            : item
+        );
         return updatedItems;
       } else {
         // New item — add to cart
@@ -31,8 +34,24 @@ function App() {
         };
         return [...prevItems, newItem];
       }
-    }); 
+    });
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
   return (
     <Router>
@@ -46,4 +65,3 @@ function App() {
   );
 }
 
-export default App;

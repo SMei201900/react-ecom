@@ -11,5 +11,6 @@ nav a {
 }
 
 nav a:hover {
-    color: #b8b9ce; 
+  color: #972044; 
+  font-weight: bold;
 }

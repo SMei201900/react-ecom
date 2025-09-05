@@ -22,7 +22,7 @@ const Home = ({ addToCart }) => {
         setLoading(false);
       })
       .catch(error => {
-        console.error('Error fetching products:', error); /*probably can axios popup it*/
+        console.error('Error fetching products:', error); 
         setLoading(false);
       });
   }, []);
