@@ -10,11 +10,28 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
 
   const addToCart = (product) => {
+    const productId = product._id || product.id;
 
-  setCartItems((prevItems) => {
-    const newCart = [...prevItems, product];
-    return newCart;
-  });
+    setCartItems((prevItems) => {
+      const existingIndex = prevItems.findIndex(
+        (item) => (item._id || item.id) === productId
+      );
+
+      if (existingIndex !== -1) {
+        // Item exists — increment quantity
+        const updatedItems = [...prevItems];
+        updatedItems[existingIndex].quantity += 1;
+        return updatedItems;
+      } else {
+        // New item — add to cart
+        const newItem = {
+          ...product,
+          id: productId,
+          quantity: 1,
+        };
+        return [...prevItems, newItem];
+      }
+    }); 
   };
 
   return (
